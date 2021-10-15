@@ -94,7 +94,7 @@ resource "aws_lb_listener_rule" "rule" {
 
   condition {
     host_header {
-      values = var.frontend_domain
+      values = [var.frontend_domain]
     }
   }
 }
