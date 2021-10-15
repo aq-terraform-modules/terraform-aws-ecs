@@ -1,6 +1,30 @@
 locals {
   frontend_name = "${var.name}-frontend"
 }
+#################################################################################
+# DATASOURCE
+#################################################################################
+data "aws_lb" "core_lb" {
+  name = var.lb_name
+}
+
+data "aws_route53_zone" "main_zone" {
+  name = var.main_domain
+}
+
+data "aws_vpc" "core_vpc" {
+  filter {
+    Name = var.vpc_name
+  }
+}
+
+data "aws_subnet_ids" "public_subnets" {
+  vpc_id = data.aws_vpc.core_vpc.id
+
+  filter {
+    Name = "*public*"
+  }
+}
 
 #################################################################################
 # CLUSTER CREATION
@@ -56,7 +80,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    subnets = var.subnets
+    subnets = data.aws_subnet_ids.public_subnets.ids
     assign_public_ip = var.assign_public_ip
   }
 
@@ -82,7 +106,7 @@ resource "aws_lb_target_group" "target_group" {
   port = 80
   protocol = "HTTP"
   target_type = "ip"
-  vpc_id = var.vpc_id
+  vpc_id = data.aws_vpc.core_vpc.id
 }
 
 resource "aws_lb_listener_rule" "rule" {
@@ -103,12 +127,12 @@ resource "aws_lb_listener_rule" "rule" {
 # ROUTE53
 #################################################################################
 resource "aws_route53_record" "record" {
-  zone_id = var.route53_zone_id
+  zone_id = data.aws_route53_zone.main_zone.zone_id
   name = var.frontend_domain
   type = "A"
   alias {
-    name = var.lb_dns_name
-    zone_id = var.lb_zone_id
+    name = data.aws_lb.core_lb.dns_name
+    zone_id = data.aws_lb.core_lb.zone_id
     evaluate_target_health = var.evaluate_target_health
   }
 }

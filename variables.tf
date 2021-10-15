@@ -58,38 +58,30 @@ variable "launch_type" {
   default = "FARGATE"
 }
 
-variable "subnets" {
-  description = "Subnet of the service"
-}
-
 variable "assign_public_ip" {
   description = "Assign public ip to service or not"
   type = bool
   default = true
 }
 
-variable "vpc_id" {
-  description = "VPC ID that will associate with the LB target group"
+variable "vpc_name" {
+  description = "VPC name that will associate with the LB target group"
 }
 
 variable "listener_arn" {
   description = "LB listener ARN"
 }
 
-variable "lb_dns_name" {
-  description = "LB dns name to create the alias in route53"
-}
-
-variable "lb_zone_id" {
-  description = "Availability Zone of the LB"
-}
-
-variable "route53_zone_id" {
-  description = "Route53 id to create record for the service"
-}
-
 variable "evaluate_target_health" {
   description = "Evaluate health of the target in the route53 alias setting"
   type = bool
   default = true
+}
+
+variable "lb_name" {
+  description = "Name of the LB that will use to create target group"
+}
+
+variable "main_domain" {
+  description = "Route53 zone name to create record type A"
 }
