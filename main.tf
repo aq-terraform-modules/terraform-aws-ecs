@@ -51,7 +51,7 @@ resource "aws_ecs_service" "service" {
   launch_type = var.launch_type
 
   deployment_circuit_breaker {
-    enabled = true
+    enable = true
     rollback = true
   }
 
