@@ -1,3 +1,7 @@
+variable "parent_domain" {
+  description = "Parent domain"
+}
+
 variable "name" {
   description = "Name of the cluster"
 }

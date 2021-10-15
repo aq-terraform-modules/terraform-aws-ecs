@@ -85,6 +85,7 @@ resource "aws_lb_target_group" "target_group" {
   vpc_id = var.vpc_id
 }
 
+
 resource "aws_lb_listener_rule" "rule" {
   listener_arn = var.listener_arn
   action {
@@ -94,7 +95,7 @@ resource "aws_lb_listener_rule" "rule" {
 
   condition {
     host_header {
-      values = [var.frontend_domain]
+      values = ["${var.frontend_domain}.${var.parent_domain}"]
     }
   }
 }
