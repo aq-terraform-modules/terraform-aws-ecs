@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "task" {
           "containerPort": ${var.frontend_port},
           "hostPort": ${var.frontend_port}
         }
-      ]
+      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
