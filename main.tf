@@ -48,8 +48,7 @@ resource "aws_ecs_task_definition" "task" {
           "containerPort": ${var.frontend_port},
           "hostPort": ${var.frontend_port}
         }
-      ],
-
+      ]
     }
   ]
   TASK_DEFINITION
