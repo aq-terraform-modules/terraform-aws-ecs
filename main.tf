@@ -17,6 +17,10 @@ resource "aws_ecs_cluster" "cluster" {
 #################################################################################
 # SERVICE & TASK DEFINITION CREATION
 #################################################################################
+resource "aws_cloudwatch_log_group" "yada" {
+  name_prefix = var.frontend_log_group_name_prefix
+}
+
 resource "aws_ecs_task_definition" "task" {
   family = "${local.frontend_name}"
   cpu = var.frontend_cpu
@@ -37,6 +41,13 @@ resource "aws_ecs_task_definition" "task" {
           "hostPort": ${var.frontend_port}
         }
       ]
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${var.frontend_log_group_name_prefix}", 
+          "awslogs-region": "${var.region}", 
+          "awslogs-stream-prefix": "ecs" 
+        }
     }
   ]
   TASK_DEFINITION

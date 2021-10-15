@@ -97,3 +97,7 @@ variable "evaluate_target_health" {
   type = bool
   default = true
 }
+
+variable "frontend_log_group_name_prefix" {
+  description = "Log group for saving ecs log"
+}
