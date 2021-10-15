@@ -7,7 +7,7 @@ locals {
 #################################################################################
 resource "aws_ecs_cluster" "cluster" {
   name               = var.name
-  capacity_providers = var.capacity_providers
+  capacity_providers = [var.capacity_providers]
   setting {
     name  = "containerInsights"
     value = var.enable_container_insights
@@ -21,7 +21,7 @@ resource "aws_ecs_task_definition" "task" {
   family = "${local.frontend_name}"
   cpu = var.frontend_cpu
   memory = var.frontend_memory
-  requires_compatibilities = var.requires_compatibilities
+  requires_compatibilities = [var.requires_compatibilities]
   network_mode = var.network_mode
   container_definitions = <<TASK_DEFINITION
   [
