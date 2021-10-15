@@ -17,7 +17,7 @@ resource "aws_ecs_cluster" "cluster" {
 #################################################################################
 # SERVICE & TASK DEFINITION CREATION
 #################################################################################
-resource "aws_cloudwatch_log_group" "yada" {
+resource "aws_cloudwatch_log_group" "frontend" {
   name_prefix = var.frontend_log_group_name_prefix
 }
 
@@ -51,6 +51,10 @@ resource "aws_ecs_task_definition" "task" {
     }
   ]
   TASK_DEFINITION
+
+  depends_on = [
+    aws_cloudwatch_log_group.frontend
+  ]
 }
 
 resource "aws_ecs_service" "service" {
