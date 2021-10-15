@@ -101,3 +101,7 @@ variable "evaluate_target_health" {
 variable "frontend_log_group_name_prefix" {
   description = "Log group for saving ecs log"
 }
+
+variable "region" {
+  description = "Region of the AWS"
+}
