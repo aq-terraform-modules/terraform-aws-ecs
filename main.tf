@@ -35,12 +35,6 @@ resource "aws_ecs_task_definition" "task" {
       "name": "${local.frontend_name}",
       "image": "${var.frontend_image}",
       "networkMode": "${var.network_mode}",
-      "portMappings": [
-        {
-          "containerPort": ${var.frontend_port},
-          "hostPort": ${var.frontend_port}
-        }
-      ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
@@ -48,6 +42,14 @@ resource "aws_ecs_task_definition" "task" {
           "awslogs-region": "${var.region}", 
           "awslogs-stream-prefix": "ecs" 
         }
+      },      
+      "portMappings": [
+        {
+          "containerPort": ${var.frontend_port},
+          "hostPort": ${var.frontend_port}
+        }
+      ],
+
     }
   ]
   TASK_DEFINITION
