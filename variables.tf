@@ -26,12 +26,12 @@ variable "frontend_memory" {
 
 variable "requires_compatibilities" {
   description = "Task compatibilities"
-  default = "FARGATE"
+  default     = "FARGATE"
 }
 
 variable "network_mode" {
   description = "Network mode for container and task definition"
-  default = "awsvpc"
+  default     = "awsvpc"
 }
 
 variable "frontend_image" {
@@ -48,18 +48,18 @@ variable "frontend_domain" {
 
 variable "force_new_deployment" {
   description = "Force new deployment when task definition get update"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "desired_count" {
   description = "Desired count to create the number of task inside the service"
-  default = 1
+  default     = 1
 }
 
 variable "launch_type" {
   description = "Service launch type"
-  default = "FARGATE"
+  default     = "FARGATE"
 }
 
 variable "subnets" {
@@ -68,8 +68,8 @@ variable "subnets" {
 
 variable "assign_public_ip" {
   description = "Assign public ip to service or not"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "vpc_id" {
@@ -94,8 +94,8 @@ variable "route53_zone_id" {
 
 variable "evaluate_target_health" {
   description = "Evaluate health of the target in the route53 alias setting"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "frontend_log_group_name_prefix" {

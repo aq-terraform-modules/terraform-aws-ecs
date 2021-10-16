@@ -22,12 +22,12 @@ resource "aws_cloudwatch_log_group" "frontend" {
 }
 
 resource "aws_ecs_task_definition" "task" {
-  family = "${local.frontend_name}"
-  cpu = var.frontend_cpu
-  memory = var.frontend_memory
+  family                   = local.frontend_name
+  cpu                      = var.frontend_cpu
+  memory                   = var.frontend_memory
   requires_compatibilities = [var.requires_compatibilities]
-  network_mode = var.network_mode
-  container_definitions = <<TASK_DEFINITION
+  network_mode             = var.network_mode
+  container_definitions    = <<TASK_DEFINITION
   [
     {
       "cpu": ${var.frontend_cpu},
@@ -51,27 +51,27 @@ resource "aws_ecs_task_definition" "task" {
 }
 
 resource "aws_ecs_service" "service" {
-  name = "${local.frontend_name}"
-  cluster = aws_ecs_cluster.cluster.id
-  task_definition = aws_ecs_task_definition.task.arn
+  name                 = local.frontend_name
+  cluster              = aws_ecs_cluster.cluster.id
+  task_definition      = aws_ecs_task_definition.task.arn
   force_new_deployment = var.force_new_deployment
-  desired_count = var.desired_count
-  launch_type = var.launch_type
+  desired_count        = var.desired_count
+  launch_type          = var.launch_type
 
   deployment_circuit_breaker {
-    enable = true
+    enable   = true
     rollback = true
   }
 
   network_configuration {
-    subnets = var.subnets
+    subnets          = var.subnets
     assign_public_ip = var.assign_public_ip
   }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.target_group.arn
-    container_name = local.frontend_name
-    container_port = var.frontend_port
+    container_name   = local.frontend_name
+    container_port   = var.frontend_port
   }
 
   # Ignore change when task definition was updated
@@ -86,18 +86,18 @@ resource "aws_ecs_service" "service" {
 # LOADBALANCER RELATED
 #################################################################################
 resource "aws_lb_target_group" "target_group" {
-  name = local.frontend_name
-  port = 80
-  protocol = "HTTP"
+  name        = local.frontend_name
+  port        = 80
+  protocol    = "HTTP"
   target_type = "ip"
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 }
 
 
 resource "aws_lb_listener_rule" "rule" {
   listener_arn = var.listener_arn
   action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.target_group.arn
   }
 
@@ -113,11 +113,11 @@ resource "aws_lb_listener_rule" "rule" {
 #################################################################################
 resource "aws_route53_record" "record" {
   zone_id = var.route53_zone_id
-  name = var.frontend_domain
-  type = "A"
+  name    = var.frontend_domain
+  type    = "A"
   alias {
-    name = var.lb_dns_name
-    zone_id = var.lb_zone_id
+    name                   = var.lb_dns_name
+    zone_id                = var.lb_zone_id
     evaluate_target_health = var.evaluate_target_health
   }
 }
