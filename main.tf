@@ -75,11 +75,11 @@ resource "aws_ecs_service" "service" {
   }
 
   # Ignore change when task definition was updated
-  lifecycle {
-    ignore_changes = [
-      task_definition
-    ]
-  }
+  # lifecycle {
+  #   ignore_changes = [
+  #     task_definition
+  #   ]
+  # }
 }
 
 #################################################################################
