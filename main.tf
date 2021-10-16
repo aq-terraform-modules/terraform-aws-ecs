@@ -35,14 +35,14 @@ resource "aws_ecs_task_definition" "task" {
       "name": "${local.frontend_name}",
       "image": "${var.frontend_image}",
       "networkMode": "${var.network_mode}",
-      "logConfiguration": {
-        "logDriver": "awslogs",
-        "options": {
-          "awslogs-group": "${var.frontend_log_group_name_prefix}", 
-          "awslogs-region": "${var.region}", 
-          "awslogs-stream-prefix": "ecs" 
-        }
-      },      
+      # "logConfiguration": {
+      #   "logDriver": "awslogs",
+      #   "options": {
+      #     "awslogs-group": "${var.frontend_log_group_name_prefix}", 
+      #     "awslogs-region": "${var.region}", 
+      #     "awslogs-stream-prefix": "ecs" 
+      #   }
+      # },      
       "portMappings": [
         {
           "containerPort": ${var.frontend_port},
