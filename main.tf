@@ -118,8 +118,9 @@ resource "local_file" "task_definition" {
 resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<EOT
-      "echo ${path.module}" 
-      "pwd"
+      'echo "${path.module}"'
+      'ls .terraform'
+      'pwd'
     EOT
   }
 
