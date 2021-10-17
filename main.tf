@@ -18,7 +18,7 @@ resource "aws_ecs_cluster" "cluster" {
 # ECS RELATED
 #################################################################################'
 resource "aws_cloudwatch_log_group" "frontend" {
-  name_prefix = var.frontend_log_group_name_prefix
+  name_prefix = "${var.name}-frontend"
 }
 
 resource "aws_ecs_task_definition" "task" {
@@ -40,7 +40,7 @@ resource "aws_ecs_task_definition" "task" {
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "${var.frontend_log_group_name_prefix}", 
+          "awslogs-group": "${var.name}-frontend", 
           "awslogs-region": "${var.region}", 
           "awslogs-stream-prefix": "ecs" 
       },
