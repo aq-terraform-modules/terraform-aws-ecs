@@ -102,9 +102,9 @@ data "template_file" "task_definition" {
     region = var.region
     frontend_port = var.frontend_port
     frontend_image = var.frontend_image
-    frontend_name = var.frontend_name
-    frontend_memory = frontend_memory
-    frontend_cpu = frontend_cpu
+    frontend_name = local.frontend_name
+    frontend_memory = var.frontend_memory
+    frontend_cpu = var.frontend_cpu
     requires_compatibilities = var.requires_compatibilities
     network_mode = var.network_mode
   }
