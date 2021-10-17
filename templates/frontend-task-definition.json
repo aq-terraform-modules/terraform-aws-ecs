@@ -1,0 +1,31 @@
+{
+  "executionRoleArn": "${role_arn}",
+  "containerDefinitions": [
+    {
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "${logs_group}",
+          "awslogs-region": "${region}",
+          "awslogs-stream-prefix": "ecs-frontend"
+        }
+      },
+      "portMappings": [
+        {
+          "hostPort": "${frontend_port}",
+          "containerPort": "${frontend_port}"
+        }
+      ],
+      "image": "${frontend_image}",
+      "essential": true,
+      "name": "${frontend_name}"
+    }
+  ],
+  "memory": "${frontend_memory}",
+  "cpu": "${frontend_cpu}",
+  "taskRoleArn": "${role_arn}",
+  "requiresCompatibilities": [
+    "${requires_compatibilities}"
+  ],
+  "networkMode": "${network_mode}"
+}
