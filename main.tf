@@ -129,11 +129,13 @@ resource "local_file" "task_definition" {
   filename = "./frontend-task-definition.json"
 }
 
-resource "null_resource" "git1" {
+resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<EOT
       "ls"
       "cat 'frontend-task-definition.json'"
+      "cat './frontend-task-definition.json'"
+      "cat ./frontend-task-definition.json"
     EOT
   }
 
