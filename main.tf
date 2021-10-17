@@ -95,7 +95,7 @@ resource "aws_codecommit_repository" "monitoring" {
 }
 
 data "template_file" "task_definition" {
-  template = "${file("${path.module}/templates/task-definition.tmpl'")}"
+  template = "${file("${path.module}/templates/frontend-task-definition.json")}"
   vars = {
     role_arn = aws_iam_role.ecs_tasks_execution_role.arn
     logs_group = var.name
