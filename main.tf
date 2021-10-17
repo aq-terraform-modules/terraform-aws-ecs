@@ -16,7 +16,28 @@ resource "aws_ecs_cluster" "cluster" {
 
 #################################################################################
 # ECS RELATED
-#################################################################################
+#################################################################################'
+data "aws_iam_policy_document" "ecs_tasks_execution_role" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["ecs-tasks.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role" "ecs_tasks_execution_role" {
+  name               = "${var.name}-ecs-task-execution-role"
+  assume_role_policy = "${data.aws_iam_policy_document.ecs_tasks_execution_role.json}"
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_tasks_execution_role" {
+  role       = "${aws_iam_role.ecs_tasks_execution_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+}
+
 resource "aws_cloudwatch_log_group" "frontend" {
   name_prefix = var.frontend_log_group_name_prefix
 }
@@ -130,3 +151,4 @@ resource "aws_codecommit_repository" "monitoring" {
   description     = "Repository for saving task-definition.json that will be used for CodePipeline"
   default_branch  = "main"
 }
+
