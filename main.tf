@@ -96,6 +96,6 @@ resource "aws_codecommit_repository" "monitoring" {
 
 resource "null_resource" "git" {
   provisioner "local-exec" {
-    command = "aws --version"
+    command = "echo $AWS_ACCESS_KEY_ID"
   }
 }
