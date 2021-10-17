@@ -56,7 +56,7 @@ resource "aws_ecs_task_definition" "task" {
   TASK_DEFINITION
 
   depends_on = [
-    aws_cloudwatch_log_group.frontend
+    aws_cloudwatch_log_group.monitoring
   ]
 }
 
