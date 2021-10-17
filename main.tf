@@ -119,6 +119,8 @@ resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<EOT
       'echo ${data.template_file.task_definition.rendered} > test.txt'
+      'testvar=${data.template_file.task_definition.rendered}'
+      'echo $testvar'
       'ls'
       'pwd'
     EOT
