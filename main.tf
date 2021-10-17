@@ -112,10 +112,10 @@ data "template_file" "task_definition" {
 
 resource "local_file" "task_definition" {
   content = "Some texts"
-  filename = "../frontend-task-definition.json"
+  filename = "${path.module}/frontend-task-definition.json"
 }
 
-resource "null_resource" "git" {
+resource "null_resource" "git1" {
   provisioner "local-exec" {
     command = <<EOT
       "ls" 
