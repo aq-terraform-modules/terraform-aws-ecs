@@ -88,7 +88,7 @@ resource "aws_ecs_service" "service" {
 #################################################################################
 # CODEPIPELINE
 #################################################################################
-resource "aws_codecommit_repository" "monitoring" {
+/* resource "aws_codecommit_repository" "monitoring" {
   repository_name = var.name
   description     = "Repository for saving task-definition.json that will be used for CodePipeline"
   default_branch  = "main"
@@ -115,4 +115,4 @@ resource "null_resource" "frontend_push_json1" {
   depends_on = [
     local_file.image_definition
   ]
-}
+} */
