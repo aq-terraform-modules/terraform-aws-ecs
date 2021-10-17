@@ -105,7 +105,7 @@ resource "local_file" "image_definition" {
   filename = "./frontend-image-definition.json"
 }
 
-resource "null_resource" "frontend_push_json" {
+resource "null_resource" "frontend_push_json1" {
   provisioner "local-exec" {
     command = <<-EOT
       aws codecommit put-file --region ${var.region} --repository-name ${var.name} --branch-name main --file-content file://frontend-image-definition.json --file-path frontend-image-definition.json --name 'Terraform Deployment' --email 'sheid1309@gmail.com' --commit-message 'Init commit'
