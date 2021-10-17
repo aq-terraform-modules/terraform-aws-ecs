@@ -94,22 +94,6 @@ resource "aws_codecommit_repository" "monitoring" {
   default_branch  = "main"
 }
 
-data "template_file" "task_definition" {
-  template = "${file("${path.module}/templates/frontend-task-definition.json")}"
-  vars = {
-    role_arn = aws_iam_role.ecs_tasks_execution_role.arn
-    logs_group = var.name
-    region = var.region
-    frontend_port = var.frontend_port
-    frontend_image = var.frontend_image
-    frontend_name = local.frontend_name
-    frontend_memory = var.frontend_memory
-    frontend_cpu = var.frontend_cpu
-    requires_compatibilities = var.requires_compatibilities
-    network_mode = var.network_mode
-  }
-}
-
 resource "local_file" "task_definition" {
   content = templatefile(
     "${path.module}/templates/frontend-task-definition.json",
@@ -129,13 +113,10 @@ resource "local_file" "task_definition" {
   filename = "./frontend-task-definition.json"
 }
 
-resource "null_resource" "git1" {
+resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<-EOT
-      ls
-      cat 'frontend-task-definition.json'
-      cat './frontend-task-definition.json'
-      cat ./frontend-task-definition.json
+      cat '~/.aws/config'
     EOT
   }
 
