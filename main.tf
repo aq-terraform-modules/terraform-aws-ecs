@@ -27,6 +27,8 @@ resource "aws_ecs_task_definition" "task" {
   memory                   = var.frontend_memory
   requires_compatibilities = [var.requires_compatibilities]
   network_mode             = var.network_mode
+  execution_role_arn       = aws_iam_role.ecs_tasks_execution_role.arn
+  task_role_arn            = aws_iam_role.ecs_tasks_execution_role.arn
   container_definitions    = <<TASK_DEFINITION
   [
     {
