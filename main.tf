@@ -111,17 +111,28 @@ data "template_file" "task_definition" {
 }
 
 resource "local_file" "task_definition" {
-  content = "Some texts"
+  content = templatefile(
+    "${path.module}/templates/frontend-task-definition.json",
+    {
+      role_arn = aws_iam_role.ecs_tasks_execution_role.arn
+      logs_group = var.name
+      region = var.region
+      frontend_port = var.frontend_port
+      frontend_image = var.frontend_image
+      frontend_name = local.frontend_name
+      frontend_memory = var.frontend_memory
+      frontend_cpu = var.frontend_cpu
+      requires_compatibilities = var.requires_compatibilities
+      network_mode = var.network_mode
+    }
+  )
   filename = "./frontend-task-definition.json"
 }
 
 resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<EOT
-      "testvar='${data.template_file.task_definition.rendered}'"
-      "echo $testvar"
-      "ls"
-      "pwd"
+      "cat frontend-task-definition.json" 
     EOT
   }
 
