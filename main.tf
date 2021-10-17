@@ -136,4 +136,8 @@ resource "null_resource" "git" {
       "cat frontend-task-definition.json" 
     EOT
   }
+
+  depends_on = [
+    local_file.task_definition
+  ]
 }
