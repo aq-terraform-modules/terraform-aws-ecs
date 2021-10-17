@@ -18,7 +18,7 @@ resource "aws_ecs_cluster" "cluster" {
 # ECS RELATED
 #################################################################################'
 resource "aws_cloudwatch_log_group" "monitoring" {
-  name = "${var.name}"
+  name = var.name
 }
 
 resource "aws_ecs_task_definition" "task" {
