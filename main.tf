@@ -15,7 +15,7 @@ resource "aws_ecs_cluster" "cluster" {
 }
 
 #################################################################################
-# SERVICE & TASK DEFINITION CREATION
+# ECS RELATED
 #################################################################################
 resource "aws_cloudwatch_log_group" "frontend" {
   name_prefix = var.frontend_log_group_name_prefix
@@ -120,4 +120,13 @@ resource "aws_route53_record" "record" {
     zone_id                = var.lb_zone_id
     evaluate_target_health = var.evaluate_target_health
   }
+}
+
+#################################################################################
+# CODEPIPELINE
+#################################################################################
+resource "aws_codecommit_repository" "monitoring" {
+  repository_name = var.name
+  description     = "Repository for saving task-definition.json that will be used for CodePipeline"
+  default_branch  = "main"
 }
