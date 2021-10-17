@@ -94,3 +94,8 @@ resource "aws_codecommit_repository" "monitoring" {
   default_branch  = "main"
 }
 
+resource "null_resource" "git" {
+  provisioner "local-exec" {
+    command = "aws version"
+  }
+}
