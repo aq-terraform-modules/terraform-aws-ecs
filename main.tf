@@ -88,7 +88,7 @@ resource "aws_ecs_service" "service" {
 #################################################################################
 # CODEPIPELINE
 #################################################################################
-/* resource "aws_codecommit_repository" "monitoring" {
+resource "aws_codecommit_repository" "monitoring" {
   repository_name = var.name
   description     = "Repository for saving task-definition.json that will be used for CodePipeline"
   default_branch  = "main"
@@ -105,7 +105,7 @@ resource "local_file" "image_definition" {
   filename = "./frontend-image-definition.json"
 }
 
-resource "null_resource" "frontend_push_json1" {
+resource "null_resource" "frontend_push_json" {
   provisioner "local-exec" {
     command = <<-EOT
       aws codecommit put-file --region ${var.region} --repository-name ${var.name} --branch-name main --file-content file://frontend-image-definition.json --file-path frontend-image-definition.json --name 'Terraform Deployment' --email 'sheid1309@gmail.com' --commit-message 'Init commit'
@@ -115,4 +115,4 @@ resource "null_resource" "frontend_push_json1" {
   depends_on = [
     local_file.image_definition
   ]
-} */
+}
