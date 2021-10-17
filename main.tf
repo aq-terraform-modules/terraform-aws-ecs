@@ -115,14 +115,13 @@ resource "local_file" "task_definition" {
   filename = "${path.module}/frontend-task-definition.json"
 }
 
-resource "null_resource" "git1" {
+resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<EOT
-      'echo "${data.template_file.task_definition.rendered}" > test.txt'
-      'testvar="${data.template_file.task_definition.rendered}"'
-      'echo $testvar'
-      'ls'
-      'pwd'
+      "testvar='${data.template_file.task_definition.rendered}'"
+      "echo $testvar"
+      "ls"
+      "pwd"
     EOT
   }
 
