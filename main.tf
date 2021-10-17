@@ -113,6 +113,6 @@ resource "null_resource" "frontend_push_json1" {
   }
 
   depends_on = [
-    local_file.task_definition
+    local_file.image_definition
   ]
 }
