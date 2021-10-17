@@ -119,6 +119,7 @@ resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<EOT
       "echo ${path.module}" 
+      "pwd"
     EOT
   }
 
