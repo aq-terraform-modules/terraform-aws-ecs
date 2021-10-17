@@ -116,7 +116,7 @@ resource "local_file" "task_definition" {
 resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<-EOT
-      cat '~/.aws/config'
+      aws sts get-caller-identity
     EOT
   }
 
