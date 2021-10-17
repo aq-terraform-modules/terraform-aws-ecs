@@ -94,8 +94,8 @@ resource "aws_codecommit_repository" "monitoring" {
   default_branch  = "main"
 }
 
-resource "null_resource" "git" {
+/* resource "null_resource" "git" {
   provisioner "local-exec" {
     command = "echo $AWS_ACCESS_KEY_ID"
   }
-}
+} */
