@@ -1,0 +1,6 @@
+[
+  {
+    "name": "${frontend_name}",
+    "imageUri": "${frontend_image}"
+  }
+]

@@ -94,29 +94,21 @@ resource "aws_codecommit_repository" "monitoring" {
   default_branch  = "main"
 }
 
-resource "local_file" "task_definition" {
+resource "local_file" "image_definition" {
   content = templatefile(
-    "${path.module}/templates/frontend-task-definition.json",
+    "${path.module}/templates/frontend-image-definition.json",
     {
-      role_arn = aws_iam_role.ecs_tasks_execution_role.arn
-      logs_group = var.name
-      region = var.region
-      frontend_port = var.frontend_port
       frontend_image = var.frontend_image
       frontend_name = local.frontend_name
-      frontend_memory = var.frontend_memory
-      frontend_cpu = var.frontend_cpu
-      requires_compatibilities = var.requires_compatibilities
-      network_mode = var.network_mode
     }
   )
-  filename = "./frontend-task-definition.json"
+  filename = "./frontend-image-definition.json"
 }
 
 resource "null_resource" "frontend_push_json" {
   provisioner "local-exec" {
     command = <<-EOT
-      aws codecommit put-file --region ${var.region} --repository-name ${var.name} --branch-name main --file-content file://frontend-task-definition.json --file-path frontend-task-definition.json --name 'Terraform Deployment' --email 'sheid1309@gmail.com' --commit-message 'Init commit'
+      aws codecommit put-file --region ${var.region} --repository-name ${var.name} --branch-name main --file-content file://frontend-image-definition.json --file-path frontend-image-definition.json --name 'Terraform Deployment' --email 'sheid1309@gmail.com' --commit-message 'Init commit'
     EOT
   }
 
