@@ -83,13 +83,6 @@ resource "aws_ecs_service" "service" {
     container_name   = local.frontend_name
     container_port   = var.frontend_port
   }
-
-  # Ignore change when task definition was updated
-  # lifecycle {
-  #   ignore_changes = [
-  #     task_definition
-  #   ]
-  # }
 }
 
 #################################################################################
