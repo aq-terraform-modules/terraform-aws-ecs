@@ -43,6 +43,7 @@ resource "aws_ecs_task_definition" "task" {
           "awslogs-group": "${var.name}-frontend", 
           "awslogs-region": "${var.region}", 
           "awslogs-stream-prefix": "ecs" 
+        }
       },
       "portMappings": [
         {
