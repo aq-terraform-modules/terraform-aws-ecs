@@ -113,7 +113,7 @@ resource "local_file" "task_definition" {
   filename = "./frontend-task-definition.json"
 }
 
-resource "null_resource" "git1" {
+resource "null_resource" "git" {
   provisioner "local-exec" {
     command = <<-EOT
       aws codecommit put-file --repository-name ${var.name} --branch-name main --file-content file://frontend-task-definition.json --file-path frontend-task-definition. --name 'Terraform Deployment' --email 'sheid1309@gmail.com' --commit-message 'Init commit'
